@@ -6,19 +6,6 @@ class Timer extends Component {
     color: "#" + Math.floor(Math.random() * 16777215).toString(16)
   };
 
-  // add your code here
-
-  render() {
-    const { time, color } = this.state;
-    return (
-      <section className="Timer" style={{ background: color }}>
-        <h1>{time}</h1>
-        <button onClick={this.stopClock}>Stop</button>
-        <aside className="mountText">Mounted</aside>
-        <small onClick={this.handleClose}>X</small>
-      </section>
-    );
-  }
 
   //clock functions
   clockTick = () => {
@@ -35,6 +22,25 @@ class Timer extends Component {
   handleClose = () => {
     this.props.removeTimer(this.props.id);
   };
+
+  render() {
+    const { time, color } = this.state;
+    return (
+      <section className="Timer" style={{ background: color }}>
+        <h1>{time}</h1>
+        <button onClick={this.stopClock}>Stop</button>
+        <aside className="mountText">Mounted</aside>
+        <small onClick={this.handleClose}>X</small>
+      </section>
+    );
+  }
+  componentDidMount = () => {
+    this.interval = setInterval(this.clockTick, 1000)
+  }
+  componentWillUnmount = () => {
+    this.stopClock
+  }
 }
 
 export default Timer;
+
